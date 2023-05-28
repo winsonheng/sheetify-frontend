@@ -1,0 +1,38 @@
+.body {
+  width: 100%;
+  flex: 1 0 auto;
+  background: url("../images/body-background.gif");
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.body-container {
+  width: 70%;
+  height: auto;
+}
+
+.body-description {
+  color: aliceblue;
+  font-size: 48px;
+}
+
+.body-supported-formats {
+  color: aquamarine;
+  margin-bottom: 32px;
+}
+
+.upload-btn {
+  background-color:black;
+  color: aliceblue;
+  border: 3px solid cadetblue;
+  border-radius: 32px;
+  font-size: 28px;
+  padding: 10px 28px 10px 28px;
+  cursor: pointer;
+}
+
+.upload-btn:hover {
+  background-color: cadetblue;
+}
