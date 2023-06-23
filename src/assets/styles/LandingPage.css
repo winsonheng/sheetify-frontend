@@ -1,7 +1,6 @@
 .body {
   width: 100%;
   flex: 1 0 auto;
-  background: url("../images/body-background.gif");
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -35,4 +34,12 @@
 
 .upload-btn:hover {
   background-color: cadetblue;
+}
+
+.body-selected-file {
+  color: aliceblue;
+}
+
+.body-upload-successful {
+  color: aliceblue;
 }
