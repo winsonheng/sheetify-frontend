@@ -20,7 +20,7 @@ export default class SignupPage extends Component {
       isEmailValid: false,
       isPasswordValid: false,
       isPasswordMatched: false,
-      isFormSubmitted: true // TODO: change this to false
+      isFormSubmitted: false // TODO: change this to false
     };
 
     this.handleEmailChange = this.handleEmailChange.bind(this);
@@ -28,8 +28,8 @@ export default class SignupPage extends Component {
     this.handleRetypePasswordChange = this.handleRetypePasswordChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.preventSubmit = this.preventSubmit.bind(this);
-    this.googleLoginSuccess = this.googleLoginSuccess.bind(this);
-    this.googleLoginError = this.googleLoginError.bind(this);
+    this.googleLoginSuccess = this.googleSignupSuccess.bind(this);
+    this.googleLoginError = this.googleSignupError.bind(this);
   }
   
   componentDidMount() {
@@ -93,13 +93,13 @@ export default class SignupPage extends Component {
     e.preventDefault();
   }
 
-  googleLoginSuccess(response) {
-    console.log('Google login successful!', response);
+  googleSignupSuccess(response) {
+    console.log('Google signup successful!', response);
     googleLogout();
   }
 
-  googleLoginError() {
-    console.log('Google login error!');
+  googleSignupError() {
+    console.log('Google signup error!');
   }
 
   render() {
@@ -232,8 +232,8 @@ export default class SignupPage extends Component {
                         theme='outline'
                         context='signup'
                         text='signup_with'
-                        onSuccess={this.googleLoginSuccess}
-                        onError={this.googleLoginError}
+                        onSuccess={this.googleSignupSuccess}
+                        onError={this.googleSignupError}
                         useOneTap
                       />
                     </div>
