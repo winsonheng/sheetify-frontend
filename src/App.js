@@ -6,6 +6,8 @@ import { getCookie } from './util/RestUtil';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import LoginPage from './components/LoginPage';
 import SignupPage from './components/SignupPage';
+import MySongs from './components/MySongs';
+
 
 function App() {
 
@@ -19,6 +21,7 @@ function App() {
           <Route index element={<LandingPage />}></Route>
           <Route path="login" element={<LoginPage />}></Route>
           <Route path="signup" element={<SignupPage />}></Route>
+          <Route path="mySongs" element={<MySongs />}></Route>
         </Route>
     </Routes>
     </div>

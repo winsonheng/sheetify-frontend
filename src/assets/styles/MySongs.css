@@ -1,0 +1,57 @@
+.mysongs {
+    color: white;
+    width: 100%;
+    height: 100%;
+    padding: 30px 15% 30px 15%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+.mysongs-top {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    margin-bottom: 60px;
+}
+
+.mysongs-title {
+    font-size: 48px;
+    margin: 0 0 0 0;
+    text-anchor: start;
+}
+
+.mysongs-upload-btn-wrapper {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.mysongs-upload-btn {
+    align-self: flex-end;
+    background-color:black;
+    color: aliceblue;
+    border: 3px solid cadetblue;
+    border-radius: 32px;
+    font-size: 28px;
+    padding: 10px 28px 10px 28px;
+    cursor: pointer;
+}
+
+.mysongs-upload-btn:hover {
+    background-color: cadetblue;
+}
+
+.mysongs-bottom {
+    width: 100%;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.mysongs-table {
+    width: 100%;
+    height: 100%;
+}

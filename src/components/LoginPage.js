@@ -1,10 +1,10 @@
 import React, { Component, useState } from 'react'
 import Form from 'react-bootstrap/Form'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { GoogleLogin, googleLogout } from '@react-oauth/google';
 import { useLocation } from 'react-router-dom';
 import { BACKEND_BASE_URL } from '../constants/config';
-import { USERS_GET_AUTH_TOKEN, USERS_LOGIN_EMAIL } from '../constants/endpoints';
+import { USERS_GET_TOKEN, USERS_LOGIN_EMAIL } from '../constants/endpoints';
 import { StatusCode, postData } from '../util/RestUtil';
 import { ToastContainer, toast } from 'react-toastify';
 import '../assets/styles/LoginPage.css'
@@ -12,6 +12,8 @@ import '../assets/styles/LoginPage.css'
 export default function LoginPage(props) {
 
   const location = useLocation();
+
+  const navigate = useNavigate();
 
   const [userInputs, setUserInputs] = useState({
     email: '',
@@ -71,7 +73,7 @@ export default function LoginPage(props) {
       }
     ).then(response => {
       if (response.status === StatusCode.OK) {
-        getAuthToken();
+        getToken();
       } else if (response.status === StatusCode.UNAUTHORIZED) {
         toast.error('Please check your login details and try again!');
       }
@@ -79,15 +81,16 @@ export default function LoginPage(props) {
     
   }
 
-  function getAuthToken() {
-    postData(BACKEND_BASE_URL + USERS_GET_AUTH_TOKEN, 
+  function getToken() {
+    postData(BACKEND_BASE_URL + USERS_GET_TOKEN, 
       {
         username: userInputs.email,
         password: userInputs.password
       }
     ).then(response => {
       if (response.status == StatusCode.OK) {
-        sessionStorage.setItem('authToken', response.data.token);
+        sessionStorage.setItem('token', response.data.token);
+        navigate('/mySongs');
         toast.success('Login successful!');
       } else {
         toast.error('Something went wrong. Please try again!')

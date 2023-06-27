@@ -6,6 +6,7 @@
   background-color: #282c34;
   padding: 5px 50px 5px 50px;
   box-sizing: border-box;
+  z-index: 100;
 }
 
 .header-container {
@@ -14,6 +15,7 @@
   width: 100%;
   height: auto;
   flex: 1 0 auto;
+  align-items: center;
 }
 
 .awesome {
@@ -27,7 +29,6 @@
 .logo {
   width: auto;
   height: 2em;
-  align-self: center;
 }
 
 .header-links {

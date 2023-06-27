@@ -7,6 +7,12 @@ export const StatusCode = {
   INTERNAL_SERVER_ERROR: 500,
 }
 
+export function getCommonHeaders() {
+  return {
+    Authorization: 'Token ' + sessionStorage.getItem('token', '')
+  };
+}
+
 export function getCookie(name) {
   var cookieValue = null;
   if (document.cookie && document.cookie !== '') {
@@ -22,11 +28,12 @@ export function getCookie(name) {
   return cookieValue;
 }
 
-export function postData(url = "", data = {}) {
+export async function postData(url = "", data = {}) {
   return fetch(url, {
     credentials: "include",
     method: "POST",
     headers: {
+      ...getCommonHeaders(),
       'Accept': 'application/json',
       'Content-Type': 'application/json',
       'X-CSRFToken': getCookie('csrftoken')

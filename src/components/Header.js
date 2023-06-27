@@ -8,7 +8,9 @@ export default class Header extends Component {
     return (
       <div className="header">
         <div className="header-container">
-          <img className="logo" src={logo} alt="Missing image"></img>
+          <Link to="/">
+            <img className="logo" src={logo} alt="Missing image"></img>
+          </Link>
           <div className="header-links">
             <button className="header-link">
               My Songs
