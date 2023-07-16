@@ -2,11 +2,11 @@ import React, { Component } from 'react'
 import "../assets/styles/LandingPage.css"
 import { Link } from 'react-router-dom';
 import Form from 'react-bootstrap/Form'
-import { BACKEND_BASE_URL } from '../constants/config';
-import { postData } from '../util/RestUtil';
+import { BACKEND_BASE_URL, PATH, ROOT } from '../constants/config';
+import { HttpMethod, postData } from '../util/RestUtil';
 import { toBase64 } from '../util/FileUtil';
 import { SONGS_UPLOAD } from '../constants/endpoints'; 
-import CSRFToken from './csrftoken';
+
 
 export default class LandingPage extends Component {
   constructor(props) {
@@ -38,6 +38,8 @@ export default class LandingPage extends Component {
     e.persist();
     const file = e.target.files[0];
     console.log(file);
+    // Reset input value so that this method is triggered when same file is selected again
+    e.target.value = null;
     this.setState({ selectedFile: file });
 
     if (file === undefined) {
@@ -102,13 +104,15 @@ export default class LandingPage extends Component {
     //console.log(songBase64);
 
     postData(
+      HttpMethod.POST, 
       BACKEND_BASE_URL + SONGS_UPLOAD, 
       {
         songName: file.name,
         base64: songBase64,
         difficulty: this.state.difficulty,
         bpm: this.state.bpm === '' ? '0' : this.state.bpm
-      }
+      },
+      true
     ).then(result => {
       if (result.status === 200) {
         console.log("Upload Successful!");
@@ -149,7 +153,6 @@ export default class LandingPage extends Component {
           <h3 className="body-supported-formats">
             Supported formats: MP3, OGG, WAV
           </h3>
-          <CSRFToken></CSRFToken>
           <input hidden
             className="upload-btn"
             type="file"
@@ -160,7 +163,7 @@ export default class LandingPage extends Component {
           {(() => {
             if (sessionStorage.getItem('token') === null) {
               return (
-                <Link to='/signup'>
+                <Link to={PATH.SIGNUP_PAGE}>
                   <button 
                     className="upload-btn" 
                   >
@@ -204,6 +207,7 @@ export default class LandingPage extends Component {
               type="file"
               accept=".mp3, .ogg, .wav"
               onChange={this.uploadSong}
+              onSelect={this.uploadSong}
               ref={this.changeFileInput}
             />
             <button 

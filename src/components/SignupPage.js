@@ -2,10 +2,11 @@ import React, { Component } from 'react'
 import Form from 'react-bootstrap/Form'
 import { Link } from 'react-router-dom';
 import { GoogleLogin, googleLogout } from '@react-oauth/google';
-import { BACKEND_BASE_URL } from '../constants/config';
-import { StatusCode, postData } from '../util/RestUtil';
+import { BACKEND_BASE_URL, PATH } from '../constants/config';
+import { HttpMethod, StatusCode, postData } from '../util/RestUtil';
 import { USERS_SIGNUP_EMAIL } from '../constants/endpoints';
 import { ToastContainer, toast } from 'react-toastify';
+import { ROOT } from '../constants/config';
 import 'react-toastify/dist/ReactToastify.css';
 import '../assets/styles/SignupPage.css'
 
@@ -73,7 +74,9 @@ export default class SignupPage extends Component {
       return;
     }
 
-    postData(BACKEND_BASE_URL + USERS_SIGNUP_EMAIL,
+    postData(
+      HttpMethod.POST,
+      BACKEND_BASE_URL + USERS_SIGNUP_EMAIL,
       {
         email: this.state.email,
         password: this.state.password
@@ -81,9 +84,9 @@ export default class SignupPage extends Component {
     ).then(response => {
       if (response.status === StatusCode.OK) {
         this.setState({ isFormSubmitted: true });
-      } else if (response.status === StatusCode.BAD_REQUEST && response.data.accountExist) {
+      } else if (response.status === StatusCode.BAD_REQUEST && response.data.accountExists) {
         console.log('Account already exists!');
-        toast.info('Account already exists! Please proceed to login');
+        toast.warn('Account already exists! Please proceed to login');
       }
     })
     
@@ -115,7 +118,7 @@ export default class SignupPage extends Component {
             </h3>
             <p className='create-account-login'>
               Already have an account?<br></br>
-              <Link to="/login" className='create-account-login-link'>
+              <Link to={PATH.LOGIN_PAGE} className='create-account-login-link'>
                 Login here
               </Link>
             </p>
@@ -136,7 +139,7 @@ export default class SignupPage extends Component {
                        * <br></br>Please click on the link to activate your account.*/}
                     </p>
                     <div className='signup-email-resend-wrapper create-account-btn-wrapper'>
-                    <Link to="/login" state={{email: this.state.email}} className='create-account-login-link'>
+                    <Link to={PATH.LOGIN_PAGE} state={{email: this.state.email}} className='create-account-login-link'>
                       <button className='signup-email-resend create-account-btn'>
                         Go to login page
                         {/**Resend Email */}

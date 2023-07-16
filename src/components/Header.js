@@ -1,36 +1,66 @@
-import React, { Component } from 'react'
+import React, { Component, useContext } from 'react'
 import logo from '../assets/images/logo.png'
 import "../assets/styles/Header.css"
 import { Link } from 'react-router-dom'
+import { PATH, ROOT } from '../constants/config';
+import { UserContext } from '../App';
 
-export default class Header extends Component {
-  render() {
-    return (
-      <div className="header">
-        <div className="header-container">
-          <Link to="/">
-            <img className="logo" src={logo} alt="Missing image"></img>
-          </Link>
-          <div className="header-links">
+
+export default function Header(props){
+
+  const { isLoggedIn, setIsLoggedIn } = useContext(UserContext);
+
+  return (
+    <div className="header">
+      <div className="header-container">
+        <Link to={PATH.ROOT}>
+          <img className="logo" src={logo} alt="Missing image"></img>
+        </Link>
+        <div className="header-links">
+          <Link to={PATH.MY_SONGS} className='header-link-wrapper'>
             <button className="header-link">
               My Songs
             </button>
+          </Link>
+          <Link to={PATH.GLOBAL_PLAYLIST} className='header-link-wrapper'>
             <button className="header-link">
               Global Playlist
             </button>
-            <Link to="/signup">
-              <button className="signup-btn">
-                Sign Up
-              </button>
-            </Link>
-            <Link to="/login">
-              <button className="login-btn">
-                Login
-              </button>
-            </Link>
-          </div>
+          </Link>
+          {(() => {
+            if (!isLoggedIn) {
+              return (
+                <>
+                  <Link to={PATH.SIGNUP_PAGE}>
+                    <button className="signup-btn">
+                      Sign Up
+                    </button>
+                  </Link>
+                  <Link to={PATH.LOGIN_PAGE}>
+                    <button className="login-btn">
+                      Login
+                    </button>
+                  </Link>
+                </>
+              );
+            }
+          })()}
         </div>
+        {(() => {
+          if (isLoggedIn) {
+            return (
+              <div className='header-account-wrapper'>
+                <div className='header-account-image'>
+
+                </div>
+                <div className='header-account-username'>
+                  Username
+                </div>
+              </div>  
+            );
+          }
+        })()}
       </div>
-    )
-  }
+    </div>
+  );
 }

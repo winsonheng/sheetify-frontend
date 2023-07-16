@@ -52,3 +52,33 @@ html, body, #root {
   visibility: hidden;
 }
 
+.loading-animation {
+  width: 100%;
+  height: 100%;
+  background-image: url("../images/loading-animation.gif");
+  background-size: 100px;
+  background-repeat: no-repeat;
+  background-position: 50% 40%;
+}
+
+table {
+  background-color: rgba(21, 154, 138, 0.348);
+  border-radius: 20px;
+}
+
+tr {
+  align-items: center;
+  width: 100%;
+
+}
+
+th {
+  font-size: 21px;
+  max-width: 20%;
+
+}
+
+td {
+  border: 1px solid gray;
+}
+

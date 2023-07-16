@@ -1,3 +1,7 @@
+import Cookies from "universal-cookie";
+import { BACKEND_BASE_URL } from "../constants/config";
+import { USERS_GET_CSRF } from "../constants/endpoints";
+
 export const StatusCode = {
   OK: 200,
   BAD_REQUEST: 400,
@@ -7,38 +11,54 @@ export const StatusCode = {
   INTERNAL_SERVER_ERROR: 500,
 }
 
-export function getCommonHeaders() {
+export const HttpMethod = {
+  GET: 'GET',
+  POST: 'POST',
+  UPDATE: 'UPDATE',
+  DELETE: 'DELETE'
+}
+
+const HttpMethodValues = Object.values(HttpMethod);
+
+export function getAuthHeaders() {
   return {
     Authorization: 'Token ' + sessionStorage.getItem('token', '')
   };
 }
 
-export function getCookie(name) {
-  var cookieValue = null;
-  if (document.cookie && document.cookie !== '') {
-      var cookies = document.cookie.split(';');
-      for (var i = 0; i < cookies.length; i++) {
-          var cookie = cookies[i].trim();
-          if (cookie.substring(0, name.length + 1) === (name + '=')) {
-              cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-              break;
-          }
-      }
-  }
-  return cookieValue;
+export const COOKIES = new Cookies();
+
+export async function getCsrfToken() {
+  await postData(
+    HttpMethod.GET,
+    BACKEND_BASE_URL + USERS_GET_CSRF,
+  ).then(response => {
+    if (response.status === StatusCode.OK) {
+      COOKIES.set('csrftoken', response.data.csrftoken);
+      console.log(response.data.csrftoken);
+    } else {
+      
+    }
+  });
 }
 
-export async function postData(url = "", data = {}) {
+export async function postData(method=HttpMethod.GET, url="", data={}, auth=false) {
+  if (!HttpMethodValues.includes(method)) {
+    throw TypeError('Invalid HTTP Method!');
+  }
+  
+  const csrftoken = COOKIES.get('csrftoken');
+
   return fetch(url, {
     credentials: "include",
-    method: "POST",
+    method: method,
     headers: {
-      ...getCommonHeaders(),
+      ...(auth ? getAuthHeaders() : {}),
       'Accept': 'application/json',
       'Content-Type': 'application/json',
-      'X-CSRFToken': getCookie('csrftoken')
+      'X-CSRFToken': csrftoken
     },
-    body: JSON.stringify(data)
+    ...(method === HttpMethod.GET ? {} : {body: JSON.stringify(data)})
   })
     .catch(e => {
       console.log("Something went wrong!");

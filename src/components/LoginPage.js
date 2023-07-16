@@ -3,9 +3,9 @@ import Form from 'react-bootstrap/Form'
 import { Link, useNavigate } from 'react-router-dom';
 import { GoogleLogin, googleLogout } from '@react-oauth/google';
 import { useLocation } from 'react-router-dom';
-import { BACKEND_BASE_URL } from '../constants/config';
+import { BACKEND_BASE_URL, PATH, ROOT } from '../constants/config';
 import { USERS_GET_TOKEN, USERS_LOGIN_EMAIL } from '../constants/endpoints';
-import { StatusCode, postData } from '../util/RestUtil';
+import { HttpMethod, StatusCode, postData } from '../util/RestUtil';
 import { ToastContainer, toast } from 'react-toastify';
 import '../assets/styles/LoginPage.css'
 
@@ -66,31 +66,37 @@ export default function LoginPage(props) {
       return;
     }
 
-    postData(BACKEND_BASE_URL + USERS_LOGIN_EMAIL,
+    postData(
+      HttpMethod.POST,
+      BACKEND_BASE_URL + USERS_LOGIN_EMAIL,
       {
         email: userInputs.email,
         password: userInputs.password
       }
     ).then(response => {
       if (response.status === StatusCode.OK) {
-        getToken();
+        console.log(response.data.user)
+        getToken(response.data.user);
       } else if (response.status === StatusCode.UNAUTHORIZED) {
         toast.error('Please check your login details and try again!');
       }
-    })
+    });
     
   }
 
-  function getToken() {
-    postData(BACKEND_BASE_URL + USERS_GET_TOKEN, 
+  function getToken(user) {
+    postData(
+      HttpMethod.POST,
+      BACKEND_BASE_URL + USERS_GET_TOKEN, 
       {
         username: userInputs.email,
         password: userInputs.password
-      }
+      },
     ).then(response => {
       if (response.status == StatusCode.OK) {
-        sessionStorage.setItem('token', response.data.token);
-        navigate('/mySongs');
+        user.token = response.data.token;
+        navigate(PATH.MY_SONGS);
+        props.handleLogin(user);
         toast.success('Login successful!');
       } else {
         toast.error('Something went wrong. Please try again!')
@@ -141,7 +147,7 @@ export default function LoginPage(props) {
             </h3>
             <p className='login-account-signup'>
               Don't have an account?<br></br>
-              <Link to="/signup" className='login-account-signup-link'>
+              <Link to={PATH.SIGNUP_PAGE} className='login-account-signup-link'>
                 Signup here
               </Link>
             </p>
