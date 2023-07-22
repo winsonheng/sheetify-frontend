@@ -12,6 +12,8 @@ import GlobalPlaylist from './components/GlobalPlaylist';
 import Cookies from 'universal-cookie';
 import { USERS_GET_CSRF } from './constants/endpoints';
 import { createContext, useEffect, useState } from 'react';
+import VerifiedPage from './components/VerifiedPage';
+import UserSetupPage from './components/UserSetupPage';
 
 export const UserContext = createContext({
   isLoggedIn: false,
@@ -50,6 +52,8 @@ function App() {
           <Route path={PATH.LANDING_PAGE} element={<LandingPage />}></Route>
           <Route path={PATH.LOGIN_PAGE} element={<LoginPage handleLogin={handleLogin}/>}></Route>
           <Route path={PATH.SIGNUP_PAGE} element={<SignupPage />}></Route>
+          <Route path={PATH.VERIFIED_PAGE} element={<VerifiedPage />}></Route>
+          <Route path={PATH.USER_SETUP_PAGE} element={<UserSetupPage />}></Route>
           <Route path={PATH.MY_SONGS} element={<MySongs />}></Route>
           <Route path={PATH.GLOBAL_PLAYLIST} element={<GlobalPlaylist />}></Route>
         </Route>
