@@ -52,6 +52,10 @@ html, body, #root {
   visibility: hidden;
 }
 
+button.disabled {
+  opacity: 50%;
+}
+
 .loading-animation {
   width: 100%;
   height: 100%;

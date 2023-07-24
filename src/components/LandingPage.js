@@ -63,9 +63,13 @@ export default class LandingPage extends Component {
       this.animateBody();
     }
 
+    console.log('here');
+
     this.setState({
       unsupportedFileFormat: false,
-      showPreferences: true
+      showPreferences: true,
+      waitingForResult: false,
+      obtainedResult: false
     });
   }
 
@@ -230,7 +234,8 @@ export default class LandingPage extends Component {
             />
             <button 
               id="change-file-btn"
-              className="upload-btn" 
+              className={"upload-btn" + (this.state.waitingForResult ? " disabled" : '')}
+              disabled={this.state.waitingForResult}
               onClick={e => {
                 this.fileInput.current.dispatchEvent(new MouseEvent("click"));
               }}
@@ -333,17 +338,6 @@ export default class LandingPage extends Component {
                   >
                     Begin Transcription
                   </button>
-                  <h4 className={
-                    this.state.isFileUploadSuccessful === undefined ? 
-                      "invisible" :
-                      "body-upload-successful"
-                  }>
-                    {
-                      this.state.isFileUploadSuccessful ? 
-                        "File uploaded successfully!" :
-                        "Error while uploading file. Please try again"
-                    }
-                  </h4>
                 </div>
               );
             } else {
