@@ -58,7 +58,8 @@ export async function postData(method=HttpMethod.GET, url="", data={}, auth=fals
       ...(auth ? getAuthHeaders() : {}),
       'Accept': 'application/json',
       'Content-Type': 'application/json',
-      'X-CSRFToken': csrftoken
+      'X-CSRFToken': csrftoken,
+      'Access-Control-Allow-Origin': 'https://sheetify-frontend.web.app'
     },
     ...(method === HttpMethod.GET ? {} : {body: JSON.stringify(data)})
   })

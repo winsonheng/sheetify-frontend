@@ -58,6 +58,12 @@
   line-height: 1.8em;
   min-height: 1.8em;
   max-height: 1.8em;
+  margin: 10px;
+}
+
+.body-disclaimer {
+  color: rgb(173, 173, 173);
+  margin: 20px;
 }
 
 .body-container-bottom {

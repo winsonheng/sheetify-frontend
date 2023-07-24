@@ -211,7 +211,9 @@ export default class LandingPage extends Component {
                );
             }
           })()}
-          
+          <p className='body-disclaimer'>
+            *Disclaimer: We're still improving accuracy for non-piano pieces
+          </p>
         </div>
         <div className='body-container-bottom' ref={this.bodyBottom}>
           <div className='body-change-file-wrapper'>
@@ -244,6 +246,7 @@ export default class LandingPage extends Component {
                     "Selected file: " + this.state.selectedFile.name
               }
             </h4>
+            
           </div>
           <div className='body-preferences'>
             <div className='body-preferences-top'>
@@ -348,7 +351,7 @@ export default class LandingPage extends Component {
                 <div className='transcribe-result-container'>
                   <midi-player
                     className='midi-player'
-                    src={this.state.transcription}
+                    src={this.state.transcription_url}
                     sound-font>
                   </midi-player>
                   <h4 className='transcribe-result-text'>
