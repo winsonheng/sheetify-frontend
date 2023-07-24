@@ -54,7 +54,7 @@ export default function Header(props){
 
                 </div>
                 <div className='header-account-username'>
-                  Username
+                  {sessionStorage.getItem('username') ?? 'Username not set'}
                 </div>
               </div>  
             );

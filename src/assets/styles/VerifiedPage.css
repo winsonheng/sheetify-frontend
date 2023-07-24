@@ -1,0 +1,20 @@
+.verified-page {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#verified-left {
+  background-image: linear-gradient(to right top, #051937b2, #004369bb, #038178b5, #009a6ca8, #3ec2409f);
+}
+
+#verified-right {
+
+}
+
+#verified-login-btn {
+  padding-left: 42px;
+  padding-right: 42px;
+}

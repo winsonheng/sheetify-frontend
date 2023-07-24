@@ -115,9 +115,9 @@
   grid-row: 2;
   grid-column: 2;
   font-weight: bold;
-  color: rgba(232, 217, 217, 0.79);
+  color: rgba(232, 217, 217, 0.79)!important;
   text-align: left;
-  margin: 15px 0px 0px 0px;
+  margin: 15px 0px 0px 0px!important;
 }
 
 .login-form-forgot-password:hover {

@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react'
+import React, { Component, useEffect, useRef, useState } from 'react'
 import Form from 'react-bootstrap/Form'
 import { Link, useNavigate } from 'react-router-dom';
 import { GoogleLogin, googleLogout } from '@react-oauth/google';
@@ -12,6 +12,8 @@ import '../assets/styles/LoginPage.css'
 export default function LoginPage(props) {
 
   const location = useLocation();
+
+  const { email } = location.state == null ? { email: '' } : location.state;
 
   const navigate = useNavigate();
 
@@ -27,6 +29,20 @@ export default function LoginPage(props) {
     isEmailValid: false,
     emailConfirmed: false
   });
+
+  useEffect(() => {
+    // populate the email field if it came from verified email
+    if (email != '') {
+      setUserInputs((prev) => {
+        return {
+          ...prev,
+          email: email,
+          isEmailValid: true
+        };
+      });
+    }
+  }, []);
+  
 
   function handleEmailChange(e) {
     const email = e.target.value;
@@ -95,8 +111,17 @@ export default function LoginPage(props) {
     ).then(response => {
       if (response.status == StatusCode.OK) {
         user.token = response.data.token;
-        navigate(PATH.MY_SONGS);
-        props.handleLogin(user);
+        props.setToken(response.data.token);
+        if (user.username == null) {
+          navigate(PATH.USER_SETUP_PAGE, {
+            state: {
+              user: user
+            }
+          });
+        } else {
+          navigate(PATH.MY_SONGS);
+          props.handleLogin(user);
+        }
         toast.success('Login successful!');
       } else {
         toast.error('Something went wrong. Please try again!')
@@ -109,6 +134,7 @@ export default function LoginPage(props) {
     if (!forgotPassword.isEmailValid) {
       return;
     }
+    
     // TODO: check email exists
     setForgotPassword((prev) => {
       return {
@@ -219,6 +245,7 @@ export default function LoginPage(props) {
                         className='login-form-group' 
                         controlId='loginEmail' 
                         onChange={handleEmailChange}
+                        
                       >
                         <div className='login-form-email-icon'/>
                         <Form.Control 
@@ -228,6 +255,7 @@ export default function LoginPage(props) {
                           } 
                           type='email' 
                           placeholder='Email' // TODO: Allow login by username
+                          defaultValue={email}
                         />
                       </Form.Group>
                       <Form.Group 

@@ -49,6 +49,8 @@ export async function postData(method=HttpMethod.GET, url="", data={}, auth=fals
   
   const csrftoken = COOKIES.get('csrftoken');
 
+  console.log('Fetch from:', url);
+
   return fetch(url, {
     credentials: "include",
     method: method,

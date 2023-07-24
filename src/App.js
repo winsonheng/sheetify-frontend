@@ -32,8 +32,11 @@ function App() {
 
   const [isLoggedIn, setIsLoggedIn] = useState(sessionStorage.getItem('token') !== null);
   
+  function setToken(token) {
+    sessionStorage.setItem('token', token);
+  }
+
   function handleLogin(user) {
-    sessionStorage.setItem('token', user.token);
     sessionStorage.setItem('username', user.username);
     sessionStorage.setItem('lastLogin', user.lastLogin);
     setIsLoggedIn((prev) => {
@@ -50,10 +53,10 @@ function App() {
         <Route path={PATH.ROOT} >
           <Route index element={<LandingPage />}></Route>
           <Route path={PATH.LANDING_PAGE} element={<LandingPage />}></Route>
-          <Route path={PATH.LOGIN_PAGE} element={<LoginPage handleLogin={handleLogin}/>}></Route>
+          <Route path={PATH.LOGIN_PAGE} element={<LoginPage handleLogin={handleLogin} setToken={setToken}/>}></Route>
           <Route path={PATH.SIGNUP_PAGE} element={<SignupPage />}></Route>
           <Route path={PATH.VERIFIED_PAGE} element={<VerifiedPage />}></Route>
-          <Route path={PATH.USER_SETUP_PAGE} element={<UserSetupPage />}></Route>
+          <Route path={PATH.USER_SETUP_PAGE} element={<UserSetupPage handleLogin={handleLogin}/>}></Route>
           <Route path={PATH.MY_SONGS} element={<MySongs />}></Route>
           <Route path={PATH.GLOBAL_PLAYLIST} element={<GlobalPlaylist />}></Route>
         </Route>

@@ -170,7 +170,7 @@ export default class SignupPage extends Component {
                     </h1>
                     <div className='signup-email-sent-icon'/>
                     <p className='signup-email-sent-text'>
-                      We've sent an email to {this.state.email}.
+                      We've sent an email to {this.state.email}
                       <br></br>Please click on the link to activate your account.
                     </p>
                     <div className='signup-email-resend-wrapper create-account-btn-wrapper'>
