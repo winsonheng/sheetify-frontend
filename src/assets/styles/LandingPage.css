@@ -192,6 +192,11 @@
   text-align: left;
 }
 
+.transcribe-btn-container {
+  width: 100%;
+  height: 20%;
+}
+
 .transcribe-btn {
   background-color: black;
   color: aliceblue;
@@ -208,4 +213,43 @@
 
 .body-upload-successful {
   color: aliceblue;
+}
+
+.transcribe-waiting-container {
+  width: 100%;
+  height: 20%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+#transcribe-loading-animation {
+  flex-grow: 0;
+  width: 20%;
+}
+
+.transcribe-waiting-time {
+  color: white;
+}
+
+.transcribe-result-container {
+  width: 100%;
+  height: 20%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.midi-player {
+  width: 100%;
+  visibility: visible;
+  overflow: visible;
+}
+
+.transcribe-result-text {
+  width: 100%;
+  color: white;
+  visibility: visible;
 }

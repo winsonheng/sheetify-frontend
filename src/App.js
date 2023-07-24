@@ -56,7 +56,7 @@ function App() {
           <Route path={PATH.LOGIN_PAGE} element={<LoginPage handleLogin={handleLogin} setToken={setToken}/>}></Route>
           <Route path={PATH.SIGNUP_PAGE} element={<SignupPage />}></Route>
           <Route path={PATH.VERIFIED_PAGE} element={<VerifiedPage />}></Route>
-          <Route path={PATH.USER_SETUP_PAGE} element={<UserSetupPage handleLogin={handleLogin}/>}></Route>
+          <Route path={PATH.USER_SETUP_PAGE} element={<UserSetupPage handleLogin={handleLogin}/>} exact={true}></Route>
           <Route path={PATH.MY_SONGS} element={<MySongs />}></Route>
           <Route path={PATH.GLOBAL_PLAYLIST} element={<GlobalPlaylist />}></Route>
         </Route>

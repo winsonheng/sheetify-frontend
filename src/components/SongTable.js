@@ -37,8 +37,8 @@ export default function SongTable(props) {
               <td>{item.username}</td>
               <td>{item.name}</td>
               <td>{item.upload_date}</td>
-              <td><a href={item.download_link} target='_blank'>Download</a></td>
-              <td>{item.song_pdf}</td>
+              <td><a href={item.download_link} target='_blank'>{item.download_link != '' ? 'Download' : ''}</a></td>
+              <td><a href={item.transcription} target='_blank'>{item.transcription != '' ? 'Download' : ''}</a></td>
             </tr>
           ))}
         </thead>

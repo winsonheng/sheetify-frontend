@@ -5,7 +5,8 @@ import Form from 'react-bootstrap/Form'
 import { BACKEND_BASE_URL, PATH, ROOT } from '../constants/config';
 import { HttpMethod, postData } from '../util/RestUtil';
 import { toBase64 } from '../util/FileUtil';
-import { SONGS_UPLOAD } from '../constants/endpoints'; 
+import { SONGS_UPLOAD } from '../constants/endpoints';
+import 'html-midi-player';
 
 
 export default class LandingPage extends Component {
@@ -26,6 +27,10 @@ export default class LandingPage extends Component {
       showPreferences: false,
       difficulty: 'Any',
       bpm: '',
+      waitingForResult: false,
+      obtainedResult: false,
+      transcription: '',
+      transcription_url: ''
     };
 
     this.uploadSong = this.uploadSong.bind(this);
@@ -116,12 +121,23 @@ export default class LandingPage extends Component {
     ).then(result => {
       if (result.status === 200) {
         console.log("Upload Successful!");
-        this.setState({ isFileUploadSuccessful: true });
+        this.setState({ 
+          isFileUploadSuccessful: true,
+          waitingForResult: false,
+          obtainedResult: true,
+          transcription: result.data.transcription,
+          transcription_url: result.data.transcription_url
+         });
       } else {
         console.log("Upload failed!");
-        this.setState({ isFileUploadSuccessful: false });
+        this.setState({ 
+          isFileUploadSuccessful: false,
+          waitingForResult: false
+        });
       }
     });
+
+    this.setState({ waitingForResult: true });
   }
 
   beginTranscription(e) {
@@ -297,23 +313,54 @@ export default class LandingPage extends Component {
               </div>
             </div>
           </div>
-          <button 
-            className="transcribe-btn" 
-            onClick={this.beginTranscription}
-          >
-            Begin Transcription
-          </button>
-          <h4 className={
-            this.state.isFileUploadSuccessful === undefined ? 
-              "invisible" :
-              "body-upload-successful"
-          }>
-            {
-              this.state.isFileUploadSuccessful ? 
-                "File uploaded successfully!" :
-                "Error while uploading file. Please try again"
+          {(() => {
+            if (this.state.waitingForResult) {
+              return (
+                <div className='transcribe-waiting-container'>
+                  <div id='transcribe-loading-animation' className='loading-animation'></div>
+                  <h4 className='transcribe-waiting-time'>Estimated time: 1-2 minutes</h4>
+                </div>
+              );
+            } else if (!this.state.obtainedResult) {
+              return (
+                <div className='transcribe-btn-container'>
+                  <button 
+                    className="transcribe-btn" 
+                    onClick={this.beginTranscription}
+                  >
+                    Begin Transcription
+                  </button>
+                  <h4 className={
+                    this.state.isFileUploadSuccessful === undefined ? 
+                      "invisible" :
+                      "body-upload-successful"
+                  }>
+                    {
+                      this.state.isFileUploadSuccessful ? 
+                        "File uploaded successfully!" :
+                        "Error while uploading file. Please try again"
+                    }
+                  </h4>
+                </div>
+              );
+            } else {
+              return (
+                <div className='transcribe-result-container'>
+                  <midi-player
+                    className='midi-player'
+                    src={this.state.transcription}
+                    sound-font>
+                  </midi-player>
+                  <h4 className='transcribe-result-text'>
+                    Here's your transcription:&nbsp;&nbsp;&nbsp;
+                    <a href={this.state.transcription_url}>Download</a>
+                  </h4>
+                  
+                </div>
+              )
             }
-          </h4>
+          })()}
+          
         </div>
       </div>
     )
