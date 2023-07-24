@@ -94,7 +94,7 @@ export default function LoginPage(props) {
         console.log(response.data.user)
         getToken(response.data.user);
       } else if (response.status === StatusCode.UNAUTHORIZED) {
-        toast.error('Please check your login details and try again!');
+        toast.error(response.data.message);
       }
     });
     
@@ -134,7 +134,7 @@ export default function LoginPage(props) {
     if (!forgotPassword.isEmailValid) {
       return;
     }
-    
+
     // TODO: check email exists
     setForgotPassword((prev) => {
       return {
