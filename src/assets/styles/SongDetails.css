@@ -1,0 +1,73 @@
+.songdetails {
+    color: white;
+    width: 100%;
+    height: 100%;
+    padding: 30px 5% 30px 5%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+.songdetails-top {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    margin-bottom: 60px;
+}
+
+.songdetails-title {
+    font-size: 48px;
+    margin: 0 0 0 0;
+    text-anchor: start;
+}
+
+.songdetails-upload-btn-wrapper {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    justify-content: center;
+}
+
+.songdetails-upload-btn {
+    align-self: flex-end;
+    background-color:black;
+    color: aliceblue;
+    border: 3px solid cadetblue;
+    border-radius: 32px;
+    font-size: 28px;
+    padding: 10px 28px 10px 28px;
+    cursor: pointer;
+}
+
+.songdetails-upload-btn:hover {
+    background-color: cadetblue;
+}
+
+.songdetails-bottom {
+    width: 100%;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 60px;
+}
+
+.songdetails-table {
+    width: 100%;
+    max-width: 100%;
+}
+
+.midi-container {
+    width: 100%;
+    height: 100%;
+}
+
+.midi-player {
+    width: 80%;
+}
+
+#myVisualizer {
+    width: 100%;
+    height: 100%;
+  }

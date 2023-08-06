@@ -6,7 +6,6 @@ import { BACKEND_BASE_URL, PATH, ROOT } from '../constants/config';
 import { HttpMethod, postData } from '../util/RestUtil';
 import { toBase64 } from '../util/FileUtil';
 import { SONGS_UPLOAD } from '../constants/endpoints';
-import 'html-midi-player';
 
 
 export default class LandingPage extends Component {
@@ -29,6 +28,7 @@ export default class LandingPage extends Component {
       bpm: '',
       waitingForResult: false,
       obtainedResult: false,
+      songid: null,
       transcription: '',
       transcription_url: ''
     };
@@ -129,6 +129,7 @@ export default class LandingPage extends Component {
           isFileUploadSuccessful: true,
           waitingForResult: false,
           obtainedResult: true,
+          songid: result.data.songid,
           transcription: result.data.transcription,
           transcription_url: result.data.transcription_url
          });
@@ -343,16 +344,13 @@ export default class LandingPage extends Component {
             } else {
               return (
                 <div className='transcribe-result-container'>
-                  <midi-player
-                    className='midi-player'
-                    src={this.state.transcription_url}
-                    sound-font>
-                  </midi-player>
-                  <h4 className='transcribe-result-text'>
-                    Here's your transcription:&nbsp;&nbsp;&nbsp;
-                    <a href={this.state.transcription_url}>Download</a>
+                  <h4 className='transcribe-waiting-time'>
+                    Your song is ready!<br></br>
+                    <br></br>
+                    <Link to={PATH.SONG_DETAILS.replace(':songid', this.state.songid)}>
+                      View your transcription
+                    </Link>
                   </h4>
-                  
                 </div>
               )
             }

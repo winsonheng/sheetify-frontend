@@ -8,5 +8,6 @@ export const PATH = {
     VERIFIED_PAGE: ROOT + 'verify-email/:uidb64/:token',
     USER_SETUP_PAGE: ROOT + 'user-setup/',
     MY_SONGS: ROOT + 'my-songs/',
-    GLOBAL_PLAYLIST: ROOT + 'global-playlist/'
+    GLOBAL_PLAYLIST: ROOT + 'global-playlist/',
+    SONG_DETAILS: ROOT + 'song/:songid/',
 };

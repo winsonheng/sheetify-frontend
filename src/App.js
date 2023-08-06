@@ -14,6 +14,7 @@ import { USERS_GET_CSRF } from './constants/endpoints';
 import { createContext, useEffect, useState } from 'react';
 import VerifiedPage from './components/VerifiedPage';
 import UserSetupPage from './components/UserSetupPage';
+import SongDetails from './components/SongDetails';
 
 export const UserContext = createContext({
   isLoggedIn: false,
@@ -59,6 +60,7 @@ function App() {
           <Route path={PATH.USER_SETUP_PAGE} element={<UserSetupPage handleLogin={handleLogin}/>} exact={true}></Route>
           <Route path={PATH.MY_SONGS} element={<MySongs />}></Route>
           <Route path={PATH.GLOBAL_PLAYLIST} element={<GlobalPlaylist />}></Route>
+          <Route path={PATH.SONG_DETAILS} element={<SongDetails />}></Route>
         </Route>
     </Routes>
     </div>

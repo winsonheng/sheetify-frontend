@@ -1,4 +1,5 @@
 export const SONGS_UPLOAD = "songs/uploadSong/";
+export const SONGS_GET_SONG_BY_ID = "songs/getSong/:songid/";
 export const SONGS_GET_MY_SONGS = "songs/getSongsByUser/";
 export const SONGS_GET_ALL_SONGS = "songs/getAllSongs/";
 export const USERS_SIGNUP_EMAIL = "users/signupEmail/";

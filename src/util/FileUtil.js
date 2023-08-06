@@ -6,3 +6,7 @@ export function toBase64(filePath) {
     reader.readAsDataURL(filePath);
   });
 }
+
+export function removeFileExtension(fileName) {
+  return fileName.substring(0, fileName.lastIndexOf('.'));
+}
