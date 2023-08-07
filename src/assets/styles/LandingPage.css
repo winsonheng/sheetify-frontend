@@ -248,13 +248,6 @@
   justify-content: space-evenly;
 }
 
-.midi-player {
-  width: 50%;
-  height: 100%;
-  visibility: visible;
-  overflow: visible;
-}
-
 .transcribe-result-text {
   width: 100%;
   color: white;
